@@ -53,7 +53,7 @@ public class ComputeAPITest {
 	/**
 	 * List of the Nodes 
 	 */
-	@Test
+//	@Test
 	public void listNodes() {
 		System.out.println("### listNodes ###");
 
@@ -83,7 +83,7 @@ public class ComputeAPITest {
 	/**
 	 * List of the Hardware
 	 */
-	@Test
+//	@Test
 	public void listHardware() {
 		System.out.println("### listHardware ###");
 		
@@ -98,7 +98,7 @@ public class ComputeAPITest {
 	/**
 	 * List of the Images
 	 */
-	@Test
+//	@Test
 	public void listImages() {
 		System.out.println("### listImages ###");
 		
@@ -113,7 +113,7 @@ public class ComputeAPITest {
 	/**
 	 * Create node in group
 	 */
-	@Test
+//	@Test
 	public void createNodeInGroup() {
 		System.out.println("### createNodeInGroup ###");
 		
