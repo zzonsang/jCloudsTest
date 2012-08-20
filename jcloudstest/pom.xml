@@ -7,8 +7,13 @@
   <dependencies>
   	<dependency>
   		<groupId>org.jclouds</groupId>
-  		<artifactId>jclouds-all</artifactId>
-  		<version>1.5.0-beta.6</version>
+  		<artifactId>jclouds-core</artifactId>
+  		<version>[1.5.0-beta,1.6)</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.jclouds</groupId>
+  		<artifactId>jclouds-compute</artifactId>
+  		<version>[1.5.0-beta,1.6)</version>
   	</dependency>
   </dependencies>
 </project>
