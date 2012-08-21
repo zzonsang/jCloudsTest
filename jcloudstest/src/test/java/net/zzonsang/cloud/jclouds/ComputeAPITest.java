@@ -37,14 +37,14 @@ public class ComputeAPITest {
 	 */
 //	@Test
 	public void listNodes() {
-		System.out.println("### listNodes ###");
+		CommonUtil.beforeMsg();
 
 		Set<? extends ComputeMetadata> listNodes = computeService.listNodes();
 		for ( ComputeMetadata node : listNodes ) {
 			System.out.println(node.toString());
 		}
 		
-		System.out.println("");
+		CommonUtil.completeMsg();
 	}
 	
 	/**
@@ -52,14 +52,14 @@ public class ComputeAPITest {
 	 */
 	@Test
 	public void listLocations() {
-		System.out.println("### listLocation ###");
-		
+	    CommonUtil.beforeMsg();
+	    
 		Set<? extends Location> listAssignableLocations = computeService.listAssignableLocations();
 		for ( Location location : listAssignableLocations ) {
 			System.out.println(location.toString());
 		}
 		
-		System.out.println("");
+		CommonUtil.completeMsg();
 	}
 	
 	/**
@@ -67,14 +67,14 @@ public class ComputeAPITest {
 	 */
 //	@Test
 	public void listHardware() {
-		System.out.println("### listHardware ###");
+	    CommonUtil.beforeMsg();
 		
 		Set<? extends Hardware> listHardwareProfiles = computeService.listHardwareProfiles();
 		for ( Hardware hardware : listHardwareProfiles ) {
 			System.out.println(hardware.toString());
 		}
 		
-		System.out.println("");
+		CommonUtil.completeMsg();
 	}
 	
 	/**
@@ -82,14 +82,14 @@ public class ComputeAPITest {
 	 */
 //	@Test
 	public void listImages() {
-		System.out.println("### listImages ###");
+	    CommonUtil.beforeMsg();
 		
 		Set<? extends Image> listImages = computeService.listImages();
 		for( Image image : listImages ) {
 			System.out.println(image.toString());
 		}
 		
-		System.out.println("");
+		CommonUtil.completeMsg();
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class ComputeAPITest {
 	 */
 //	@Test
 	public void createNodeInGroup() {
-		System.out.println("### createNodeInGroup ###");
+	    CommonUtil.beforeMsg();
 		
 		Template template = computeService.templateBuilder().hardwareId(TestConstants.HARDWARE_ID)
 //				.osVersionMatches("5.6")
@@ -110,7 +110,7 @@ public class ComputeAPITest {
 			e.printStackTrace();
 		}
 		
-		System.out.println("");
+		CommonUtil.completeMsg();
 	}
 }
 
