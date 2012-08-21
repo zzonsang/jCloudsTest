@@ -1,12 +1,9 @@
 package net.zzonsang.cloud.jclouds;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-
-import javax.net.ssl.SSLEngineResult.Status;
 
 import org.jclouds.Constants;
 import org.jclouds.ContextBuilder;
@@ -58,9 +55,13 @@ public class CloudStackComputeAPI {
 //        deployVirtualMachineInZone();
 //        randomRebootVirtualMachine();
 //        randomRebootRunningVirtualMachine();
+        stopVirtaulMachine();
+//        startVirtualMachine();
         
         CommonUtil.completeMsg();
     }
+    
+    
 
     private void randomRebootVirtualMachine() throws InterruptedException {
         CommonUtil.beforeMsg();
@@ -86,7 +87,7 @@ public class CloudStackComputeAPI {
         jobStatus(jobId);
     }
     
-    private String runningVM( Set<VirtualMachine> listVirtualMachines ) throws Exception {
+    protected String runningVM( Set<VirtualMachine> listVirtualMachines ) throws Exception {
         for ( VirtualMachine vm : listVirtualMachines ) {
             if ( vm.getState() == State.RUNNING ) {
                 return vm.getId();
@@ -96,12 +97,34 @@ public class CloudStackComputeAPI {
         throw new Exception("Not found the running vm");
     }
     
+    protected String runningVM() throws Exception {
+        Set<VirtualMachine> listVirtualMachines = client.getVirtualMachineClient().listVirtualMachines();
+        for ( VirtualMachine vm : listVirtualMachines ) {
+            if ( vm.getState() == State.RUNNING ) {
+                return vm.getId();
+            }
+        }
+        
+        throw new Exception("Not found the running vm");
+    }
+    
+    protected String stoppedVM() throws Exception {
+        Set<VirtualMachine> listVirtualMachines = client.getVirtualMachineClient().listVirtualMachines();
+        for ( VirtualMachine vm : listVirtualMachines ) {
+            if ( vm.getState() == State.STOPPED ) {
+                return vm.getId();
+            }
+        }
+        
+        throw new Exception("Not found the stopped vm");
+    }
+    
     /**
      * 
      * @param jobId
      * @throws InterruptedException
      */
-    private void jobStatus(String jobId) throws InterruptedException {
+    protected void jobStatus(String jobId) throws InterruptedException {
         System.out.println("Job ID : " + jobId );
         
         boolean jobContinue = true;
@@ -148,25 +171,19 @@ public class CloudStackComputeAPI {
         System.out.println( deployVirtualMachineInZone.getJobId() );
     }
     
-    private String getRandomServiceOfferingId() throws Exception {
+    protected String getRandomServiceOfferingId() throws Exception {
         return client.getOfferingClient().listServiceOfferings().iterator().next().getId();
     }
     
-    private String getRandomTemplateId() throws Exception {
+    protected String getRandomTemplateId() throws Exception {
         return client.getTemplateClient().listTemplates().iterator().next().getId();
     }
     
-    private String getFirstZoneId() throws Exception { 
+    protected String getFirstZoneId() throws Exception { 
         Zone zone = client.getZoneClient().listZones().iterator().next();
         if ( zone != null ) return zone.getId();
         else throw new Exception("Not found zone");
     }
-    
-
-    private void jobChecking(String jobId) {
-        AsyncJob<Object> asyncJob = client.getAsyncJobClient().getAsyncJob(jobId);
-    }
-    
     
     /**
      * listServiceOfferings
@@ -256,13 +273,28 @@ public class CloudStackComputeAPI {
         }
     }
     
-    private void list() {
+    private void startVirtualMachine() throws Exception {
         CommonUtil.beforeMsg();
+       
+        VirtualMachine virtualMachine = client.getVirtualMachineClient().getVirtualMachine( stoppedVM() );
+        String name = virtualMachine.getName();
+        String vmId = virtualMachine.getId();
+        System.out.println("VM ID : " + vmId + ", VM Name : " + name);
+        String jobId = client.getVirtualMachineClient().startVirtualMachine(vmId);
         
-        Set<AsyncJob<?>> listAsyncJobs = client.getAsyncJobClient().listAsyncJobs();
-        for ( AsyncJob<?> jobs : listAsyncJobs ) {
-            System.out.println(jobs.toString());
-        }
+        jobStatus(jobId);
+    }
+    
+    private void stopVirtaulMachine() throws Exception {
+        CommonUtil.beforeMsg();
+       
+        VirtualMachine virtualMachine = client.getVirtualMachineClient().getVirtualMachine( runningVM() );
+        String name = virtualMachine.getName();
+        String vmId = virtualMachine.getId();
+        System.out.println("VM ID : " + vmId + ", VM Name : " + name);
+        String jobId = client.getVirtualMachineClient().stopVirtualMachine(vmId);
+        
+        jobStatus(jobId);
     }
 }
 
