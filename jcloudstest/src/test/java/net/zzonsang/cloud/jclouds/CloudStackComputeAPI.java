@@ -12,6 +12,7 @@ import org.jclouds.cloudstack.CloudStackClient;
 import org.jclouds.cloudstack.CloudStackContext;
 import org.jclouds.cloudstack.domain.AsyncCreateResponse;
 import org.jclouds.cloudstack.domain.AsyncJob;
+import org.jclouds.cloudstack.domain.NetworkOffering;
 import org.jclouds.cloudstack.domain.PublicIPAddress;
 import org.jclouds.cloudstack.domain.ServiceOffering;
 import org.jclouds.cloudstack.domain.VirtualMachine;
@@ -55,13 +56,34 @@ public class CloudStackComputeAPI {
 //        deployVirtualMachineInZone();
 //        randomRebootVirtualMachine();
 //        randomRebootRunningVirtualMachine();
-        stopVirtaulMachine();
+//        stopVirtaulMachine();
 //        startVirtualMachine();
+        
+        listNetworkOffering();
         
         CommonUtil.completeMsg();
     }
     
+    private void createNetwork() {
+        CommonUtil.beforeMsg();
+        
+//        client.getNetworkClient().createNetworkInZone(getFirstZoneId(), networkOfferingId, name, displayText, options)
+    }
     
+    private void listNetworkOffering() {
+        CommonUtil.beforeMsg();
+
+        Set<NetworkOffering> listNetworkOfferings = client.getOfferingClient().listNetworkOfferings();
+        
+        for ( NetworkOffering offering : listNetworkOfferings ) {
+            System.out.println(offering.toString());
+        }
+    }
+    
+    private String getFirstNetworkOfferingId() {
+        NetworkOffering firstOffering = client.getOfferingClient().listNetworkOfferings().iterator().next();
+        return firstOffering.getId();
+    }
 
     private void randomRebootVirtualMachine() throws InterruptedException {
         CommonUtil.beforeMsg();
