@@ -15,7 +15,7 @@ import core.CloudStackClientFactory;
 
 public class AbstractJclouds {
 
-    protected final String apiUrl = "http://183.98.30.74:8080/client/api";
+    protected final String apiUrl = "http://192.168.71.2:8080/client/api";
     protected final String rootApiKey = "X2c6N94krBVGd-VEhB4ISiEUTXf3sY7EXmQY8Ynp-EK7TZ28kLd_N_9ANmV3qKRmnTZVp5KKDZUtJqNS2fCwlw";
     protected final String rootSecretKey = "eScvGJZgotDc16qJEZyiA0ibLcWcme6w2Dpamy252ECBNwRwLzoF6EUaguMPvTNUFB1jY83j2j_nbrlsOD4hSQ";
     protected final String zoneId = "71e8d8cf-153e-42da-9bb3-c3df9f9b39ea";
