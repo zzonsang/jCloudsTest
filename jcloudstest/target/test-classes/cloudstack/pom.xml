@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>kcms</groupId>
+    <artifactId>kcms</artifactId>
+    <version>0.1.0-alpha1-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+  <artifactId>kcms-cloudstack</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.jclouds</groupId>
+  		<artifactId>jclouds-core</artifactId>
+  		<version>${jclouds.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.jclouds</groupId>
+  		<artifactId>jclouds-compute</artifactId>
+  		<version>${jclouds.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.jclouds.api</groupId>
+  		<artifactId>cloudstack</artifactId>
+  		<version>${jclouds.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>kcms</groupId>
+  		<artifactId>kcms-core</artifactId>
+  	</dependency>
+  </dependencies>
+</project>
