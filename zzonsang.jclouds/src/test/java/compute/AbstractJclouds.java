@@ -22,7 +22,8 @@ public class AbstractJclouds {
     protected final String serviceOfferingId = "93240daf-699d-486e-be72-dfa2004573f2";
     protected final String templateId = "9e87915d-ebc7-4e47-8de7-6afc13fc187d";
     protected final String rootDomainId = "07a01f54-45cc-4b86-9e02-457cf97831b4";
-    protected final String testDomainId = "81fe53cc-67ed-4662-b416-34ff31375ca3";
+//    protected final String testDomainId = "81fe53cc-67ed-4662-b416-34ff31375ca3";
+    protected final String testDomainId = "1f0a6f6f-beb0-4404-86f9-c9134370bc3d";
     
     // xenserver-server1
     protected final String hostId1 = "239cd2ce-4bbd-4766-9893-3c99071e88c6";

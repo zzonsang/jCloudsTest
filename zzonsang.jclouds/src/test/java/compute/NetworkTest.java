@@ -30,6 +30,12 @@ public class NetworkTest extends AbstractJclouds {
         System.out.println(network);
     }
     
+//    @Test
+//    public void createVirtualNetworks() {
+//        
+//        client.getNetworkClient().createNetworkInZone(zoneId, networkOfferingId, name, displayText, options)
+//    }
+    
     @Test
     public void listPublicIPAddresses() throws InterruptedException, ExecutionException, TimeoutException {
         

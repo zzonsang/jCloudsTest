@@ -1,5 +1,6 @@
 package compute;
 
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -10,6 +11,7 @@ import org.jclouds.cloudstack.domain.ApiKeyPair;
 import org.jclouds.cloudstack.domain.Domain;
 import org.jclouds.cloudstack.options.CreateAccountOptions;
 import org.jclouds.cloudstack.options.CreateDomainOptions;
+import org.jclouds.cloudstack.options.ListDomainsOptions;
 import org.junit.Test;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -28,6 +30,17 @@ public class AccountTest extends AbstractJclouds {
         Domain domain = createDomain.get(10, TimeUnit.SECONDS);
 
         System.out.println(domain);
+    }
+    
+    @Test
+    public void listDomain() throws InterruptedException, ExecutionException, TimeoutException {
+        ListDomainsOptions options = ListDomainsOptions.NONE;
+        options.name("sc");  // like 검색 
+        
+        ListenableFuture<Set<Domain>> listDomains = client.getDomainClient().listDomains(options);
+        
+        Set<Domain> domains = listDomains.get(10, TimeUnit.SECONDS);
+        System.out.println(domains);
     }
     
     @Test
