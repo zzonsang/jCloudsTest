@@ -15,15 +15,17 @@ import core.CloudStackClientFactory;
 
 public class AbstractJclouds {
 
-    protected final String apiUrl = "http://192.168.71.2:8080/client/api";
-    protected final String rootApiKey = "X2c6N94krBVGd-VEhB4ISiEUTXf3sY7EXmQY8Ynp-EK7TZ28kLd_N_9ANmV3qKRmnTZVp5KKDZUtJqNS2fCwlw";
-    protected final String rootSecretKey = "eScvGJZgotDc16qJEZyiA0ibLcWcme6w2Dpamy252ECBNwRwLzoF6EUaguMPvTNUFB1jY83j2j_nbrlsOD4hSQ";
-    protected final String zoneId = "71e8d8cf-153e-42da-9bb3-c3df9f9b39ea";
-    protected final String serviceOfferingId = "93240daf-699d-486e-be72-dfa2004573f2";
-    protected final String templateId = "9e87915d-ebc7-4e47-8de7-6afc13fc187d";
+    protected final String apiUrl = "http://183.98.30.86:8080/client/api";
+    protected final String rootApiKey = "Ch66GTHk6E_8e9mC5nimFHOevDntkeTV43SQytIfRBsnUsM4Jx20yMe2hDh4DhGXZ6cE21H4zVDBARNSs_9s9A";
+//    protected final String rootApiKey = "A4lQn-SV1mGEe5vb_ZbOUd8k761cX-6d45553R3wBllDzpF1xvns-jEaPlW2EMhk2SdrWbJXf2zqZv93mvSCkw";
+    protected final String rootSecretKey = "AENfC4THE1Dycx9d6uZUnPbDqU5ETqMJrB6lCVhWfqmCOJnOOtV7es6nZTAahjeQfotH_LoR8zgMhM0_jo3XYA";
+//    protected final String rootSecretKey = "k8LK-96G8t2Do_38_KRMPvmbfaRT_7iWSiGCLEpnn0DDB2twuQ2YcBE68rAuZBdz7YKKI3RNhiGNcyfMht9CFQ";
+    protected final String zoneId = "239d62bf-5708-4a6b-8a41-c551975c1f23";
+    protected final String serviceOfferingId = "6926f42a-1908-451a-a2ab-ac7fffbfd76a";
+    protected final String templateId = "6099263a-24b4-4860-bbe7-a89aacd92084";
     protected final String rootDomainId = "07a01f54-45cc-4b86-9e02-457cf97831b4";
 //    protected final String testDomainId = "81fe53cc-67ed-4662-b416-34ff31375ca3";
-    protected final String testDomainId = "1f0a6f6f-beb0-4404-86f9-c9134370bc3d";
+    protected final String testDomainId = "c3b12fda-d0fa-4223-9c16-61b19b66e229";
     
     // xenserver-server1
     protected final String hostId1 = "239cd2ce-4bbd-4766-9893-3c99071e88c6";
@@ -33,6 +35,8 @@ public class AbstractJclouds {
     
     // xenserver-desktop 2
     protected final String hostId3 = "fbadc544-9d32-45fc-85dd-ebc315e59597";
+    
+    protected final String testHost = "3a45fed0-1f4d-4c30-9ff9-f16f77bf7dab";
     
     protected CloudStackClientFactory factory;
     protected CloudStackGlobalAsyncClient client;
