@@ -30,6 +30,18 @@ import core.CloudStackClientFactory;
 public class ComputeTest extends AbstractJclouds {
     
     @Test
+    public void restoreVM() {
+        String endpoint = "http://183.98.30.86:8080/client/api";
+        String apikey = "Ch66GTHk6E_8e9mC5nimFHOevDntkeTV43SQytIfRBsnUsM4Jx20yMe2hDh4DhGXZ6cE21H4zVDBARNSs_9s9A";
+        String secretkey = "AENfC4THE1Dycx9d6uZUnPbDqU5ETqMJrB6lCVhWfqmCOJnOOtV7es6nZTAahjeQfotH_LoR8zgMhM0_jo3XYA";
+        
+        CloudStackClientFactory factory = new CloudStackClientFactory();
+        CloudStackGlobalAsyncClient asyncClient = factory.getAsyncClient(endpoint, apikey, secretkey);
+        //없다..
+    }
+    
+    
+    @Test
     public void listVMsForTwoAccount() throws InterruptedException, ExecutionException, TimeoutException {
         String endpoint = "http://183.98.30.86:8080/client/api";
         
