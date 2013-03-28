@@ -11,12 +11,33 @@ import org.jclouds.cloudstack.domain.ApiKeyPair;
 import org.jclouds.cloudstack.domain.Domain;
 import org.jclouds.cloudstack.options.CreateAccountOptions;
 import org.jclouds.cloudstack.options.CreateDomainOptions;
+import org.jclouds.cloudstack.options.ListAccountsOptions;
 import org.jclouds.cloudstack.options.ListDomainsOptions;
 import org.junit.Test;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
 public class AccountTest extends AbstractJclouds {
+    
+    @Test
+    public void listAccount() throws InterruptedException, ExecutionException, TimeoutException {
+        
+        String account = "ipcaccount_28";
+        String domainId = "c3b12fda-d0fa-4223-9c16-61b19b66e229";
+        
+        ListAccountsOptions options = ListAccountsOptions.NONE;
+        options.buildQueryParameters().clear();
+        options.accountInDomain(account, domainId);
+        options.name("account");
+        
+        ListenableFuture<Set<Account>> listAccounts = client.getAccountClient().listAccounts(options);
+        
+        Set<Account> accounts = listAccounts.get(20, TimeUnit.SECONDS);
+        
+        for (Account acc : accounts) {
+            System.out.println(acc);
+        }
+    }
     
     @Test
     public void createDomain() throws InterruptedException, ExecutionException, TimeoutException {

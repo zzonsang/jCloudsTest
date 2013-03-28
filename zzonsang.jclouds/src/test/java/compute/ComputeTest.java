@@ -30,6 +30,26 @@ import core.CloudStackClientFactory;
 public class ComputeTest extends AbstractJclouds {
     
     @Test
+    public void test() {
+        String centos = "CentOS 5.6";
+        String windows = "Windows Server";
+        
+        if (windows.contains("Windows")) {
+            System.out.println(windows);
+        }
+    }
+    
+    @Test
+    public void changeServiceOffering() {
+        String endpoint = "http://183.98.30.86:8080/client/api";
+        String apikey = "Ch66GTHk6E_8e9mC5nimFHOevDntkeTV43SQytIfRBsnUsM4Jx20yMe2hDh4DhGXZ6cE21H4zVDBARNSs_9s9A";
+        String secretkey = "AENfC4THE1Dycx9d6uZUnPbDqU5ETqMJrB6lCVhWfqmCOJnOOtV7es6nZTAahjeQfotH_LoR8zgMhM0_jo3XYA";
+        
+        CloudStackClientFactory factory = new CloudStackClientFactory();
+        CloudStackGlobalAsyncClient asyncClient = factory.getAsyncClient(endpoint, apikey, secretkey);
+    }
+    
+    @Test
     public void restoreVM() {
         String endpoint = "http://183.98.30.86:8080/client/api";
         String apikey = "Ch66GTHk6E_8e9mC5nimFHOevDntkeTV43SQytIfRBsnUsM4Jx20yMe2hDh4DhGXZ6cE21H4zVDBARNSs_9s9A";
@@ -39,7 +59,6 @@ public class ComputeTest extends AbstractJclouds {
         CloudStackGlobalAsyncClient asyncClient = factory.getAsyncClient(endpoint, apikey, secretkey);
         //없다..
     }
-    
     
     @Test
     public void listVMsForTwoAccount() throws InterruptedException, ExecutionException, TimeoutException {
@@ -88,22 +107,23 @@ public class ComputeTest extends AbstractJclouds {
     
     @Test
     public void listVolumes() throws InterruptedException, ExecutionException, TimeoutException {
-        String volumeId = "371bc77f-8e6c-4fd8-b200-0460c001b741";
+//        String volumeId = "371bc77f-8e6c-4fd8-b200-0460c001b741";
         
         ListVolumesOptions options = ListVolumesOptions.NONE;
-        options.id(volumeId);
+//        options.id(volumeId);
+        options.virtualMachineId("test");
         
         ListenableFuture<Set<Volume>> listVolumes = client.getVolumeClient().listVolumes(options);
         
         Set<Volume> volumes = listVolumes.get(10, TimeUnit.SECONDS);
         
+        if (volumes.isEmpty()) {
+            System.out.println("Empty!!!!");
+        }
+        
         if (volumes.size() == 1) {
             System.out.println(volumes.iterator().next().getDeviceId());
         }
-//        
-//        for (Volume vol : volumes) {
-//            System.out.println(vol.getDeviceId());
-//        }
     }
     
     @Test

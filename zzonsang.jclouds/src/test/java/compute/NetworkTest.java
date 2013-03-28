@@ -23,18 +23,31 @@ import com.google.common.util.concurrent.ListenableFuture;
 public class NetworkTest extends AbstractJclouds {
     
     @Test
+    public void test() {
+        Set<String> tests = new HashSet<String>();
+        tests.add("test");
+        
+        System.out.println(tests.contains("test"));
+        System.out.println(tests.contains("test1"));
+    }
+    
+    @Test
     public void createFirewall() throws InterruptedException, ExecutionException, TimeoutException {
         
-        String cidr = "0.0.0.0/2";
+        String cidr = "0.0.0.0/4";
         Set<String> cidrs = new HashSet<String>();
         cidrs.add(cidr);
         
+        int start = 1150;
+        int end = 1190;
+        Protocol protocol = Protocol.TCP;
+        
         CreateFirewallRuleOptions options = CreateFirewallRuleOptions.NONE;
-        options.startPort(22);
-        options.endPort(22);
+        options.startPort(start);
+        options.endPort(end);
         options.CIDRs(cidrs);
         
-        String ipAddressId = "8d29dadc-a7ae-4ed9-8c18-a4c2b52e592a";
+        String ipAddressId = "317da80e-9217-491c-9f6d-d37072114d6a";
         
         ListFirewallRulesOptions firewallOptions = ListFirewallRulesOptions.NONE;
         firewallOptions.ipAddressId(ipAddressId);
@@ -43,17 +56,31 @@ public class NetworkTest extends AbstractJclouds {
                 client.getFirewallClient().listFirewallRules(firewallOptions);
         Set<FirewallRule> firewallRules = listFirewallRules.get(10, TimeUnit.SECONDS);
         for (FirewallRule rule : firewallRules) {
-            if (checkFirewall(rule, 22, 22, cidr, Protocol.TCP)) {
-                System.out.println("alreay exist Rule");
+            Set<String> rulecidrs =  rule.getCIDRs();
+            if (!rulecidrs.contains(cidr)) continue;
+            if (!rule.getProtocol().equals(protocol)) continue;
+            int startPort = rule.getStartPort();
+            int endPort = rule.getEndPort();
+            if (start>=startPort && start<=endPort) {
+                System.out.println("Exist");
+                return;
+            }
+            // 범위 안에 포함되면 중복된 것으로 처리한다.
+            if (end>=startPort && end<=endPort) {
+                System.out.println("Exist");
                 return;
             }
         }
         
-        for (int i=0; i<10; i++) {
-            ListenableFuture<AsyncCreateResponse> createFirewallRuleForIpAndProtocol = client.getFirewallClient().createFirewallRuleForIpAndProtocol(ipAddressId, Protocol.TCP, options);
+//        for (int i=0;i<2;i++) {
+            ListenableFuture<AsyncCreateResponse> createFirewallRuleForIpAndProtocol = 
+                    client.getFirewallClient().createFirewallRuleForIpAndProtocol(ipAddressId, protocol, options);
+            
             AsyncCreateResponse asyncCreateResponse = createFirewallRuleForIpAndProtocol.get(10, TimeUnit.SECONDS);
-            printResponse(asyncCreateResponse.getJobId());
-        }
+//            printResponse(asyncCreateResponse.getJobId());
+            
+//            Thread.sleep(2000);
+//        }
     }
     
     @Test
